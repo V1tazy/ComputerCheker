@@ -1,4 +1,5 @@
-﻿using ComputerCheker.Service;
+﻿using ComputerCheker.Data;
+using ComputerCheker.Service;
 using ComputerCheker.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,11 +21,16 @@ namespace ComputerCheker
 
         public static IServiceProvider Services => Host.Services;
         internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
+            .AddDataBase(host.Configuration.GetSection("Database"))
             .AddServices()
             .AddViewModel();
         protected override async void OnStartup(StartupEventArgs e)
         {
             var host = Host;
+
+            using(var scope = Services.CreateScope())
+                scope.ServiceProvider.GetRequiredService<DbInitializer>().InitializeAsync().Wait();
+
             base.OnStartup(e);
             await host.StartAsync();
         }
