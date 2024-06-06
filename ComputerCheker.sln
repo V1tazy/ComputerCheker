@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerCheker", "ComputerCheker.csproj", "{A8CF1CE2-4063-4C8D-BC34-A592D3C82737}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputerCheker", "ComputerCheker.csproj", "{A8CF1CE2-4063-4C8D-BC34-A592D3C82737}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerCheker.DAL", "..\ComputerCheker.DAL\ComputerCheker.DAL.csproj", "{80AD9A0B-F87C-4EF6-BBEF-6EE3ADF74772}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputerCheker.DAL", "..\ComputerCheker.DAL\ComputerCheker.DAL.csproj", "{80AD9A0B-F87C-4EF6-BBEF-6EE3ADF74772}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerCheker.Interfaces", "..\ComputerCheker.Interfaces\ComputerCheker.Interfaces.csproj", "{7FC3BE4F-12B7-4AE2-BD15-6890343C7857}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{80AD9A0B-F87C-4EF6-BBEF-6EE3ADF74772}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80AD9A0B-F87C-4EF6-BBEF-6EE3ADF74772}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80AD9A0B-F87C-4EF6-BBEF-6EE3ADF74772}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FC3BE4F-12B7-4AE2-BD15-6890343C7857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FC3BE4F-12B7-4AE2-BD15-6890343C7857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FC3BE4F-12B7-4AE2-BD15-6890343C7857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FC3BE4F-12B7-4AE2-BD15-6890343C7857}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
