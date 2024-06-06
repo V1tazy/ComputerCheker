@@ -1,4 +1,5 @@
-﻿using ComputerCheker.DAL.Context;
+﻿using ComputerCheker.DAL;
+using ComputerCheker.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +8,8 @@ namespace ComputerCheker.Data
 {
     static class DbRegistrator
     {
+
+        //Регистрация БД в основном приложение
         public static IServiceCollection AddDataBase(this IServiceCollection services, IConfiguration configuration) => services
             .AddDbContext<ComputerDB>(opt =>
             {
@@ -25,6 +28,7 @@ namespace ComputerCheker.Data
                         break;
                 }
             })
-            .AddTransient<DbInitializer>();
+            .AddTransient<DbInitializer>()
+            .AddRepositoryInDb();
     }
 }

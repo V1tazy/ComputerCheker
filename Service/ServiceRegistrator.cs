@@ -11,6 +11,7 @@ namespace ComputerCheker.Service
     static class ServiceRegistrator
     {
         public static IServiceCollection AddServices(this IServiceCollection services) => services
-            .AddSingleton<MainWindowViewModel>();
+            .AddTransient<ISearchService,SetupSerivce>()
+            .AddTransient<IAuthService, AuthService>();
     }
 }
