@@ -2,6 +2,7 @@
 using ComputerCheker.DAL.Entityes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 
 namespace ComputerCheker.Data
@@ -19,21 +20,47 @@ namespace ComputerCheker.Data
 
         public async Task InitializeAsync()
         {
+            var timer = Stopwatch.StartNew();
+            _Logger.LogInformation("Инициализация БД...");
+
+
+            _Logger.LogInformation("Удаление существующей БД...");
             await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
+
+            _Logger.LogInformation("Удаление существующей БД выполнено за {0} mc", timer.ElapsedMilliseconds);
+
+
+            _Logger.LogInformation("Миграция БД...");
 
             await _db.Database.MigrateAsync();
 
+            _Logger.LogInformation("Миграция выполнена за {0}", timer.ElapsedMilliseconds);
+
             if (await _db.Computers.AnyAsync()) return;
+
+            await InitializeRole();
+            await InitializeUser();
+            await InitializeProgramType();
+            await InitializePrograms();
+            await InitializeComputer();
+            await InitializeSetupMode();
+            await InitializeSetups();
+
+            _Logger.LogInformation("Инициализация БД выполнена за {0} c", timer.Elapsed.TotalSeconds);
         }
 
 
         #region ProgramType
 
-        private ProgramType[] _ProgramTypes;
+        private ProgramType[] _ProgramTypes { get; set; }
         private static readonly string[] _ProgramTypeName = { "текстовый редактор", "операционная система", "СУБД" };
 
         public async Task InitializeProgramType()
         {
+            var timer = Stopwatch.StartNew();
+
+
+            _Logger.LogInformation("Инициализация Типов...");
             _ProgramTypes = Enumerable.Range(0, _ProgramTypeName.Length)
                 .Select(i => new ProgramType 
                 {
@@ -44,6 +71,8 @@ namespace ComputerCheker.Data
             await _db.ProgramTypes.AddRangeAsync(_ProgramTypes);
 
             await _db.SaveChangesAsync();
+
+            _Logger.LogInformation("Инициализация Типов выполнена за {0} mc", timer.ElapsedMilliseconds);
         }
         #endregion
 
@@ -54,6 +83,9 @@ namespace ComputerCheker.Data
 
         public async Task InitializeRole()
         {
+            var timer = Stopwatch.StartNew();
+
+            _Logger.LogInformation("Инициализация Ролей...");
             _Roles = Enumerable.Range(0, _RoleNames.Length)
                 .Select(i => new Role
                 {
@@ -64,6 +96,8 @@ namespace ComputerCheker.Data
             await _db.Roles.AddRangeAsync(_Roles);
 
             await _db.SaveChangesAsync();
+
+            _Logger.LogInformation("Инициализация Ролей выполнена за {0} c", timer.Elapsed.TotalSeconds);
         }
         #endregion
 
@@ -74,12 +108,18 @@ namespace ComputerCheker.Data
 
         public async Task InitializeSetupMode()
         {
+            var timer = Stopwatch.StartNew();
+
+            _Logger.LogInformation("Инициализация Режима Установок...");
+
             _SetupModes = Enumerable.Range(0, _SetupModeName.Length)
                 .Select(i => new SetupMode
                 {
                     Name = _SetupModeName[i],
                     
                 }).ToArray();
+
+            _Logger.LogInformation("Инициализация Режима Установок выполнена за {0} c", timer.Elapsed.TotalSeconds);
         }
         #endregion
 
@@ -91,6 +131,11 @@ namespace ComputerCheker.Data
         public async Task InitializeComputer()
         {
             Random rnd = new Random();
+
+            var timer = Stopwatch.StartNew();
+
+            _Logger.LogInformation("Инициализация Компьютеров...");
+
 
             _Computers = Enumerable.Range(1, _ComputerCounter)
                 .Select(i => new Computer
@@ -104,6 +149,8 @@ namespace ComputerCheker.Data
             await _db.Computers.AddRangeAsync(_Computers);
 
             await _db.SaveChangesAsync();
+
+            _Logger.LogInformation("Инициализация Компьютеров выполнена за {0} c", timer.Elapsed.TotalSeconds);
         }
         #endregion
 
@@ -114,6 +161,10 @@ namespace ComputerCheker.Data
         public async Task InitializePrograms()
         {
             Random rnd = new Random();
+
+            var timer = Stopwatch.StartNew();
+
+            _Logger.LogInformation("Инициализация Программ...");
 
             _Programs = Enumerable.Range(1, _ProgramsCounter)
                 .Select(i => new ComputerProgram
@@ -128,6 +179,8 @@ namespace ComputerCheker.Data
             await _db.ComputerPrograms.AddRangeAsync(_Programs);
 
             await _db.SaveChangesAsync();
+
+            _Logger.LogInformation("Инициализация Программ выполнена за {0} c", timer.Elapsed.TotalSeconds);
         }
         #endregion
 
@@ -139,18 +192,26 @@ namespace ComputerCheker.Data
         {
             Random rnd = new Random();
 
+
+            var timer = Stopwatch.StartNew();
+
+            _Logger.LogInformation("Инициализация установок...");
+
             _Setups = Enumerable.Range(1, _SetupCounter)
                 .Select(i => new Setup 
                 {
                     Computer = rnd.NextItem(_Computers),
                     Programm = rnd.NextItem(_Programs),
                     SetupMode = rnd.NextItem(_SetupModes),
-                    Date = new DateTime(rnd.Next()).Date
+                    Date = DateTime.Now,
                 }).ToArray();
 
             await _db.Setups.AddRangeAsync(_Setups);
 
             await _db.SaveChangesAsync();
+
+
+            _Logger.LogInformation("Инициализация Установок выполнена за {0} c", timer.Elapsed.TotalSeconds);
         }
         #endregion
 
@@ -161,6 +222,11 @@ namespace ComputerCheker.Data
         public async Task InitializeUser()
         {
             Random rnd = new Random();
+
+
+            var timer = Stopwatch.StartNew();
+
+            _Logger.LogInformation("Инициализация Пользователей...");
 
             _Users = Enumerable.Range(1, _UserCount)
                 .Select(i => new User 
@@ -173,6 +239,8 @@ namespace ComputerCheker.Data
 
             await _db.Users.AddRangeAsync(_Users);
             await _db.SaveChangesAsync();
+
+            _Logger.LogInformation("Инициализация Пользователей выполнена за {0} c", timer.Elapsed.TotalSeconds);
         }
         #endregion
     }

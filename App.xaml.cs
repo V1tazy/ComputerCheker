@@ -28,8 +28,8 @@ namespace ComputerCheker
         {
             var host = Host;
 
-            using(var scope = Services.CreateScope())
-                scope.ServiceProvider.GetRequiredService<DbInitializer>().InitializeAsync().Wait();
+            using (var scope = Services.CreateScope())
+                await scope.ServiceProvider.GetRequiredService<DbInitializer>().InitializeAsync();
 
             base.OnStartup(e);
             await host.StartAsync();
