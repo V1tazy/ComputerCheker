@@ -44,14 +44,34 @@ namespace ComputerCheker.ViewModels
         #endregion
 
         #region CurrentModel: ViewModel Отображает используемую дочернюю модель
-        private ViewModel _CurrenModel;
+        private ViewModel _CurrentModel;
 
-        public ViewModel CurrenModel
+        public ViewModel CurrentModel
         {
-            get { return _CurrenModel; }
-            set => Set(ref _CurrenModel, value);
+            get { return _CurrentModel; }
+            set => Set(ref _CurrentModel, value);
         }
         #endregion
+
+
+
+        #region Command ShowAuthViewCommand: Отображет модель Компьютеров
+        private ICommand _ShowAuthViewCommand;
+
+        public ICommand ShowAuthViewCommand => _ShowAuthViewCommand
+            ??= new LambdaCommand(OnShowAuthViewCommandExecuted, CanShowAuthViewCommandExecute);
+
+        private bool CanShowAuthViewCommandExecute(object? arg)
+        {
+            return true;
+        }
+
+        private void OnShowAuthViewCommandExecuted(object? obj)
+        {
+            CurrentModel = new AuthViewModel(_UserRepository);
+        }
+        #endregion
+
 
 
         #region Command ShowComputerViewCommand: Отображет модель Компьютеров
@@ -62,12 +82,12 @@ namespace ComputerCheker.ViewModels
 
         private bool CanShowComputerViewCommandExecute(object? arg)
         {
-
+            return true;
         }
 
         private void OnShowComputerViewCommandExecuted(object? obj)
         {
-            CurrenModel = new ComputerViewModel(_computerRepository);
+            CurrentModel = new ComputerViewModel(_computerRepository);
         }
         #endregion
 
@@ -79,11 +99,12 @@ namespace ComputerCheker.ViewModels
 
         private bool CanShowProgramViewCommandExecute(object? arg)
         {
+            return true;
         }
 
         private void OnShowProgramViewCommandExecuted(object? obj)
         {
-            CurrenModel = new ProgramViewModel(_programRepository);
+            CurrentModel = new ProgramViewModel(_programRepository);
         }
         #endregion
 
@@ -95,11 +116,12 @@ namespace ComputerCheker.ViewModels
 
         private bool CanShowSetupViewCommandExecute(object? arg)
         {
+            return true;
         }
 
         private void OnShowSetupViewCommandExecuted(object? obj)
         {
-            CurrenModel = new SetupVIewModel(_setupRepository, _computerRepository, _programRepository, setupModeRepository);
+            CurrentModel = new SetupVIewModel(_setupRepository, _computerRepository, _programRepository, setupModeRepository);
         }
         #endregion
 

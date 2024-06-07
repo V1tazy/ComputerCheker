@@ -7,6 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <GroupBox Header="Программы">
+            <DataGrid ItemsSource="{Binding Programs}" AutoGenerateColumns="True">
+            </DataGrid>
+        </GroupBox>
     </Grid>
 </UserControl>

@@ -7,6 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="200">
+            <TextBlock>Логин</TextBlock>
+            <TextBox></TextBox>
+            <TextBlock>Пароль</TextBlock>
+            <TextBox></TextBox>
+
+            <Button Margin="5" Content="Авторизоваться"></Button>
+        </StackPanel>
     </Grid>
 </UserControl>

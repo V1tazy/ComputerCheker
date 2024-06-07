@@ -1,6 +1,7 @@
 ﻿using ComputerCheker.DAL.Entityes;
 using ComputerCheker.Interfaces;
 using MathCore.WPF.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace ComputerCheker.ViewModels
 {
     class SetupVIewModel : ViewModel
     {
+
         private readonly IRepository<Setup> _SetupRepository;
         private readonly IRepository<Computer> _computerRepository;
         private IRepository<ComputerProgram> _programRepository;

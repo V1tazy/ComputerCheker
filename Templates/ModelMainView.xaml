@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm ="clr-namespace:ComputerCheker.ViewModels"
+                    xmlns:view ="clr-namespace:ComputerCheker.Views">
+
+    <DataTemplate DataType="x:Type system.Int32">
+        <TextBlock Text="{Binding StringFormat=int{0}}"></TextBlock>
+    </DataTemplate>
+
+
+    <DataTemplate DataType="{x:Type vm:AuthViewModel}">
+        <view:AuthView DataContext="{Binding}"></view:AuthView>
+    </DataTemplate>
+    <DataTemplate DataType ="{x:Type vm:ComputerViewModel}">
+        <view:ComputerVIew DataContext="{Binding}"></view:ComputerVIew>
+    </DataTemplate>
+
+    <DataTemplate DataType ="{x:Type vm:ProgramViewModel}">
+        <view:ProgramView DataContext="{Binding}"></view:ProgramView>
+    </DataTemplate>
+
+    <DataTemplate DataType ="{x:Type vm:SetupVIewModel}">
+        <view:SetupView DataContext="{Binding}"></view:SetupView>
+    </DataTemplate>
+
+</ResourceDictionary>

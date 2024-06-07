@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ComputerCheker.Views
 {
     /// <summary>
-    /// Логика взаимодействия для ComputerView.xaml
+    /// Логика взаимодействия для ComputerVIew.xaml
     /// </summary>
-    public partial class ComputerView : Page
+    public partial class ComputerVIew : UserControl
     {
-        public ComputerView()
+        public ComputerVIew()
         {
             InitializeComponent();
         }

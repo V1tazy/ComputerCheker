@@ -4,20 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ComputerCheker"
+        xmlns:i ="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         Title="{Binding Title}" Height="450" Width="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ShowAuthViewCommand}"></i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <DockPanel>
-        <Menu>
-            <MenuItem Header="Компьютеры"></MenuItem>
-            <MenuItem Header="Программы"></MenuItem>
-            <MenuItem Header="Установки"></MenuItem>
+        <Menu IsMainMenu="True">
+            <MenuItem Header="Компьютеры" Command="{Binding ShowComputerViewCommand}"></MenuItem>
+            <MenuItem Header="Программы" Command="{Binding  ShowProgramViewCommand}"></MenuItem>
+            <MenuItem Header="Установки" Command="{Binding ShowSetupViewCommand}"></MenuItem>
         </Menu>
-        <Grid>
-            
-        </Grid>
         <StatusBar>
             <StatusBarItem>Готов</StatusBarItem>
         </StatusBar>
+        <Grid>
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="/Templates/ModelMainView.xaml"></ResourceDictionary>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </Grid.Resources>
+            <ContentControl Content="{Binding CurrentModel}">
+            </ContentControl>
+        </Grid>
     </DockPanel>
 </Window>
